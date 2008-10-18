@@ -11,19 +11,31 @@
     = stylesheet_link_tag 'blueprint-ie'
 
   = stylesheet_link_tag 'moneyrumble'
+  = stylesheet_link_tag 'boxy'
 
-  = javascript_include_tag :defaults
+  = javascript_include_tag :defaults, 'jquery.dimensions.js', 'jquery.boxy.js'
 
   %body
     %h1= APP_CONFIG[:site_name]
     
     #sidebar
-    
+      %h2 at a glance
+      = link_to 'New account', '#dlg_new_account', :class => 'button boxy', :id => 'btn_new_account'
+      #account_list= partial 'accounts/at_a_glance'
+
     #container
       #sections
-        %ul
-          %li= link_to 'Register', '#'
-          %li= link_to 'Accounts', '#'
-          %li= link_to 'Contacts', '#'
+        %ul{ :class => 'register' }
+          %li.register= link_to 'Register', '#'
+          %li.accounts= link_to 'Accounts', '#'
+          %li.contacts= link_to 'Contacts', '#'
 
-      = yield
+      #content
+        = yield
+
+    #dlg_new_account
+      - remote_form_for Account.new do |f|
+        Account name:
+        = f.text_field :name
+        .answers
+          = f.submit 'Create'

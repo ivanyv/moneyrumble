@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   def dashboard
-    
+    @accounts = Account.find(:all)
   end
 
   # GET /accounts
@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @accounts }
+      format.js   { render :partial => 'at_a_glance'}
     end
   end
 
@@ -45,7 +46,7 @@ class AccountsController < ApplicationController
   # POST /accounts.xml
   def create
     @account = Account.new(params[:account])
-
+    
     respond_to do |format|
       if @account.save
         flash[:notice] = 'Account was successfully created.'
