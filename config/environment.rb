@@ -49,8 +49,8 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_bort_session',
-    :secret      => 'c9ba017060e99fd4e23621a963dfe5d05e7975c732e622924b4a9b86a6b6d60ca6c067429f937c06675480f3181fc39f0d5328a73b559c3879cc2d9bee662c9d'
+    :session_key => '_moneyrumble_session',
+    :secret      => '3a48ce14a3a4107cf5924b6557ca87416e8161d8d638649fdce17e3bed04b3b0d71ddb7a45c9dd14472e97f83c4666233f092db7ef9f4837574870da15df4776'
   }
 
   # Use the database for sessions instead of the cookie-based default,
