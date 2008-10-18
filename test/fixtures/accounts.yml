@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  owner_id: 1
+  parent_id: 1
+  balance: 9.99
+  global_balance: 9.99
+  name: MyString
+
+two:
+  owner_id: 1
+  parent_id: 1
+  balance: 9.99
+  global_balance: 9.99
+  name: MyString

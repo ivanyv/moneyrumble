@@ -1,0 +1,36 @@
+body {
+  background: #5a5c59 url(/images/page_bg.png); }
+
+#sections {
+  padding: 3px 0;
+  margin-left: 0;
+  border-bottom: 1px solid #778;
+  font: bold 12px Verdana, sans-serif; }
+
+#sections li {
+  list-style: none;
+  margin: 0;
+  display: inline; }
+
+#sections li a {
+  padding: 3px 0.5em;
+  margin-left: 3px;
+  border: 1px solid #778;
+  border-bottom: none;
+  background: #DDE;
+  text-decoration: none; }
+
+#sections li a:link {
+  color: #448; }
+
+#sections li a:visited {
+  color: #667; }
+
+#sections li a:hover {
+  color: #000;
+  background: #AAE;
+  border-color: #227; }
+
+#sections li a#current {
+  background: white;
+  border-bottom: 1px solid white; }
