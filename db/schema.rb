@@ -9,13 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081018015145) do
+ActiveRecord::Schema.define(:version => 20081018194816) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "owner_id"
     t.integer  "parent_id"
-    t.decimal  "balance"
-    t.decimal  "global_balance"
+    t.decimal  "balance",        :default => 0.0
+    t.decimal  "global_balance", :default => 0.0
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,10 +46,23 @@ ActiveRecord::Schema.define(:version => 20081018015145) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
 
+  create_table "transactions", :force => true do |t|
+    t.integer  "account_id"
+    t.decimal  "amount"
+    t.date     "date"
+    t.string   "notes"
+    t.string   "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "identity_url"
-    t.string   "name",         :limit => 100, :default => ""
-    t.string   "email",        :limit => 100
+    t.string   "name",                      :limit => 100, :default => ""
+    t.string   "email",                     :limit => 100
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+    t.integer  "default_account"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

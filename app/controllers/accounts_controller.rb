@@ -1,13 +1,23 @@
 class AccountsController < ApplicationController
+  before_filter :find_sidebar_accounts, :only => [ :dashboard, :index, :show, :new ]
+  
   def dashboard
-    @accounts = Account.find(:all)
+    @account  = current_user.default_account
+    @current_section = 'register'
+
+    respond_to do |format|
+      format.html {
+        render :action => 'no_accounts' if @accounts.size < 1
+      }
+      format.js   { render :action => 'dashboard' }
+    end
   end
 
   # GET /accounts
   # GET /accounts.xml
   def index
-    @accounts = Account.find(:all)
-
+    @current_section = 'accounts'
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @accounts }
@@ -18,10 +28,11 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.xml
   def show
-    @account = Account.find(params[:id])
-
+    @account = current_user.accounts.find(params[:id])
+    @current_section = 'register'
+    
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :action => 'dashboard' }
       format.xml  { render :xml => @account }
     end
   end
@@ -29,26 +40,30 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # GET /accounts/new.xml
   def new
-    @account = Account.new
+    @account = current_user.accounts.new
 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @account }
+      format.js   { render :partial => 'new' }
     end
   end
 
   # GET /accounts/1/edit
   def edit
-    @account = Account.find(params[:id])
+    @account = current_user.accounts.find(params[:id])
   end
 
   # POST /accounts
   # POST /accounts.xml
   def create
-    @account = Account.new(params[:account])
+    @account = current_user.accounts.new(params[:account])
     
     respond_to do |format|
       if @account.save
+        default_account = Account.count == 1 || (Account.count > 1 && params[:default_account])
+        current_user.update_attribute(:default_account, @account.id) if default_account
+
         flash[:notice] = 'Account was successfully created.'
         format.html { redirect_to(@account) }
         format.xml  { render :xml => @account, :status => :created, :location => @account }
@@ -62,7 +77,7 @@ class AccountsController < ApplicationController
   # PUT /accounts/1
   # PUT /accounts/1.xml
   def update
-    @account = Account.find(params[:id])
+    @account = current_user.account.find(params[:id])
 
     respond_to do |format|
       if @account.update_attributes(params[:account])
@@ -79,7 +94,7 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.xml
   def destroy
-    @account = Account.find(params[:id])
+    @account = current_user.account.find(params[:id])
     @account.destroy
 
     respond_to do |format|
@@ -87,4 +102,9 @@ class AccountsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  protected
+    def find_sidebar_accounts
+      @accounts = current_user.accounts.find(:all, :conditions => { :parent_id => nil }, :include => [ :sub_accounts ] )
+    end
 end

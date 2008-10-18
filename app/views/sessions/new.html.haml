@@ -1,0 +1,23 @@
+#dlg_new_session
+  - form_tag :controller => 'sessions', :action => 'create' do
+    %p
+      Money Rumble helps you manage your money by using
+      virtual sub-accounts where you can make transfers.
+
+    %h3 Login/register automatically with your OpenID:
+    %p
+      = label_tag :openid_url, 'OpenID URL:'
+      = text_field_tag :openid_url
+
+      = submit_tag 'Login/Register'
+
+    - if flash[:error]
+      %p.error= flash[:error]
+
+    %p
+      You can also 
+      = link_to 'try out Money Rumble', '#'
+      without creating an account
+      (Your data will be saved in case you later want to register).
+
+= javascript_include_tag 'sessions'

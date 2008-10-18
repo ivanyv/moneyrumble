@@ -28,6 +28,9 @@ class BortMigration < ActiveRecord::Migration
       t.string :identity_url
       t.string :name, :limit => 100, :default => '', :null => true
       t.string :email, :limit => 100
+      t.string :remember_token, :limit => 40
+      t.datetime :remember_token_expires_at
+      t.integer :default_account
       t.timestamps
     end
     

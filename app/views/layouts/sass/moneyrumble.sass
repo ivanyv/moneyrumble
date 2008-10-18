@@ -21,6 +21,16 @@ h1
   &:hover
     :background-color #b9b4a8
 
+#logout
+  :position absolute
+  :right 15px
+  :top 5px
+  a
+    :color #2f2f2f
+    :padding 0.2em
+    :line-heigh 1.4em
+    :font-size 14px
+
 #sidebar
   :width 240px
   :bottom 15px
@@ -39,6 +49,40 @@ h1
     :color #fff
     :padding-left 0.5em
 
+  ul
+    :background-color #5a5c59
+    :color #fff
+    :margin 1em
+    :text-align left
+    :font-size 110%
+    
+    li
+      :list-style none
+      :margin 0.5em
+      :font-weight bold
+      :font-size 105%
+
+      .balance
+        :display block
+        :text-align right
+
+      a
+        :color #e0e0e0
+        :text-decoration none
+        :font-size 105%
+        &:hover
+          :color #fff
+
+      ul
+        :margin 0
+        li
+          :margin 0
+          :font-weight normal
+          :border-top 1px solid #505050
+          :font-size 90%
+          a
+            :font-size 100%
+
 #container
   :position absolute
   :right 15px
@@ -47,10 +91,14 @@ h1
   :top 62px
   :text-align left
 
-#content
+#content-wrapper
   :background #fffef9
   :width 100%
   :height 96%
+
+#content
+  :padding 1em 1em 0 1em
+  :margin-bottom 1em
 
 #sections
   padding: 3px 0
@@ -84,7 +132,25 @@ h1
 
 #dlg_new_account
   :display none
-  /*:background-color green
-  /*:color white
-  /*:font-size 30px
-  /*:padding 15px
+
+  p
+    :margin 0.5em 0
+
+  label
+    :width 100px
+    :float left
+    /:padding-top 0.5em
+
+  select, & input
+    margin: 0
+    padding: 0
+
+#dlg_new_session
+  :display none
+  :width 480px
+  p
+    :font-size 120%
+
+#account-register
+  table
+    :width 100%

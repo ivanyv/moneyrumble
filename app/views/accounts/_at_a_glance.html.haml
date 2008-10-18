@@ -1,3 +1,14 @@
-%ul
-  - for account in @accounts
-    %li= account.name
+- for account in @accounts
+  %ul
+    %li
+      %span.name= link_to "#{account.name}:", account_path(account)
+      %span.balance= number_to_currency(account.balance, :unit => '$', :separator => '.', :delimiter => ',')
+      - if account.sub_accounts.size > 0
+        %ul.subs
+          - for sub_acc in account.sub_accounts
+            %li
+              %span.name= link_to "#{sub_acc.name}:", account_path(sub_acc)
+              %span.balance= number_to_currency(sub_acc.balance, :unit => '$', :separator => '.', :delimiter => ',')
+
+#dlg_new_account
+  = partial 'new'

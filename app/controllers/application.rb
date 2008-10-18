@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
   include AuthenticatedSystem
 
+  before_filter :login_required
+
   helper :all # include all helpers, all the time
   protect_from_forgery :secret => 'bed782a6e150adacec6be6d6a2dbcc3c'
   filter_parameter_logging :password, :password_confirmation

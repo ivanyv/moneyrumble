@@ -1,0 +1,19 @@
+- remote_form_for current_user.accounts.new do |f|
+  %p
+    = f.label :name, 'Account name:'
+    = f.text_field :name
+
+  - if @accounts.size > 0
+    %p
+      = f.label :parent_id, 'Parent account:'
+      = f.collection_select :parent_id, @accounts, 'id', 'name', { :prompt => true }, :class => 'text'
+    %p
+    = label_tag :default_account, 'Set as default account?'
+    = check_box_tag :default_account
+  - else
+    %p
+      = label_tag :default_account, 'Default account?'
+      = check_box_tag :default_account, 1, true, :disabled => true
+
+  .answers
+    = f.submit 'Create'

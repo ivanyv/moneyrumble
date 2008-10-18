@@ -3,8 +3,8 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.integer :owner_id
       t.integer :parent_id
-      t.decimal :balance
-      t.decimal :global_balance
+      t.decimal :balance, :default => 0
+      t.decimal :global_balance, :default => 0
       t.string :name
 
       t.timestamps

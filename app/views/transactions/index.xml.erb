@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rows>
+<% for t in @transactions %>
+  <row id="<%= t.id %>">
+    <cell><%= t.amount %></cell>
+    <cell><%= t.date %></cell>
+    <cell><%= t.notes %></cell>
+    <cell><%= t.number %></cell>
+  </row>
+<% end %>
+</rows>

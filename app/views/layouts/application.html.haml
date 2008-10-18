@@ -13,11 +13,14 @@
   = stylesheet_link_tag 'moneyrumble'
   = stylesheet_link_tag 'boxy'
 
-  = javascript_include_tag :defaults, 'jquery.dimensions.js', 'jquery.boxy.js'
+  = javascript_include_tag :defaults, 'jquery.dimensions.js', 'jquery.boxy.js', 'grid.locale-en.js', 'grid.pack.js'
 
   %body
     %h1= APP_CONFIG[:site_name]
-    
+
+    - if logged_in?
+      #logout= link_to 'close', logout_path
+
     #sidebar
       %h2 at a glance
       = link_to 'New account', '#dlg_new_account', :class => 'button boxy', :id => 'btn_new_account'
@@ -25,17 +28,11 @@
 
     #container
       #sections
-        %ul{ :class => 'register' }
-          %li.register= link_to 'Register', '#'
-          %li.accounts= link_to 'Accounts', '#'
-          %li.contacts= link_to 'Contacts', '#'
+        %ul{ :class => @current_section }
+          %li.register= link_to 'Register', root_path
+          %li.accounts= link_to 'Accounts', accounts_path
+          %li.contacts= link_to 'Contacts', 'contacts_path'
 
-      #content
-        = yield
-
-    #dlg_new_account
-      - remote_form_for Account.new do |f|
-        Account name:
-        = f.text_field :name
-        .answers
-          = f.submit 'Create'
+      #content-wrapper
+        #content
+          = yield
