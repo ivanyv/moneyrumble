@@ -1,7 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   #map.resources :transactions
 
-  map.resources :accounts, :collection => { :dashboard => :get }, :has_many => :transactions
+  map.resources :accounts, :collection => { :dashboard => :get } do |a|
+    a.resources :transactions, :collection => { :update_attr => :any }
+  end
    
   # Restful Authentication Rewrites
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
@@ -22,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   # Home Page
   map.root :controller => 'accounts', :action => 'dashboard'
 
-  # Install the default routes as the lowest priority.
+#  # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

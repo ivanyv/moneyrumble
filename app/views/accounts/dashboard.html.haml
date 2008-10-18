@@ -1,11 +1,13 @@
 #account-register
   %h2= @account.full_name
 
-  %table#register.scroll
+  #register-wrapper
+    %table#register.scroll
 
   = submit_tag 'Enter transaction'
 
 %script{ :type => 'text/javascript' }
   == var grid_url = '#{formatted_account_transactions_path(:account_id => @account.id, :format => 'xml')}';
+  == var cell_edit_url = "#{url_for(:controller => 'transactions', :action => 'update_attr', :account_id => @account.id)}";
 
 = javascript_include_tag 'register.js'

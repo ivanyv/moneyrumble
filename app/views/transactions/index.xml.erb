@@ -2,10 +2,12 @@
 <rows>
 <% for t in @transactions %>
   <row id="<%= t.id %>">
-    <cell><%= t.amount %></cell>
-    <cell><%= t.date %></cell>
-    <cell><%= t.notes %></cell>
     <cell><%= t.number %></cell>
+    <cell><%= t.date %></cell>
+    <cell><%= t.payee %></cell>
+    <cell><%= number_to_currency0(t.payment, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
+    <cell><%= number_to_currency0(t.deposit, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
+    <cell><%= number_to_currency(t.balance, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
   </row>
 <% end %>
 </rows>

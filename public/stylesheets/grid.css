@@ -8,21 +8,21 @@
 .Header th { 
 	font-size: 100%; font-weight: bold; text-align: left;
 	padding: 2px;
-	background-image: url(/images/grid/headerbg.gif) ;
+	background: url('/images/grid/headerbg.gif');
 	color: #FFFFFF;
 	width: 100%;
 	white-space: nowrap;
 	}
 
 .HeaderLeft { 
-	background-image: url(/images/grid/headerleft.gif);
+	background-image: url('/images/grid/headerleft.gif');
 	}
 
 .HeaderRight { 
-	background-image: url(/images/grid/headerright.gif);
+	background-image: url('/images/grid/headerright.gif');
 	}
 .HeaderButton {
-	background-image: url(/images/grid/headerbg.gif);
+	background-image: url('/images/grid/headerbg.gif');
 }
 .HeaderButton img{
 	width: 17px;
@@ -41,7 +41,6 @@
 /* Grid */
 table.scroll {
 	table-layout: fixed;
-	/*border-right: 1px solid #D4D0C8;*/
 	margin-bottom:0;
 }
 table.scroll tbody tr {
@@ -53,19 +52,19 @@ table.scroll tbody tr.alt {
 }
 	
 table.scroll tr.over td{
-	background-color: #E1DCF4;
+	background-color: #b9b4a8;
 }
 	
 	table.scroll tr.selected td {
-	background: #3d84cc;
-	color: White;
+	background: #b9b4a8;
+        font-weight: bold
 }
 
 	table.scroll tbody td  {
 	padding: 2px;
 	text-align: left;
-	border-bottom: 1px solid #D4D0C8;
-	border-left: 1px solid #D4D0C8; 
+	border-bottom: 1px solid #d0cfcb;
+        border-right: 1px solid #d0cfcb;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
@@ -74,13 +73,12 @@ table.scroll tr.over td{
 	
 	table.scroll thead th  {
 	padding: 2px;
-	border-bottom: 1px solid #CBC7B8; 
-	border-left: 1px solid #D4D0C8; 
-	text-align: left;
-	font-weight: normal;
+	border-bottom: 1px solid #CBC7B8;
+	text-align: center;
+	font-weight: bold;
 	overflow: hidden;
 	white-space: nowrap;
-	background-image: url(/images/grid/grid-blue-hd.gif);
+	/*background-image: url(/images/grid/grid-blue-hd.gif);*/
 	height : 17px;
 }
 	
@@ -110,7 +108,7 @@ div.scroll {
 	height: 23px;
 	white-space: nowrap;
 	text-align: center;
-	background-image: url(/images/grid/grid-blue-ft.gif);
+	/*background-image: url(/images/grid/grid-blue-ft.gif);*/
 	display : none;
 
 }
@@ -140,7 +138,7 @@ input.selbox{
 
 table.navtable {margin-bottom:0; width: auto;}
 table.navtable tr{
-	background-image: url(/images/grid/grid-blue-ft.gif);
+	/*background-image: url(/images/grid/grid-blue-ft.gif);*/
 }
 
 table.navtable td.nav-button {
@@ -176,7 +174,7 @@ div.loading {
 	padding: 3px;
 	text-align: center;
 	font-weight: bold;
-	background: red;
+	background: #50825D;
 	color: white;
 	display: none;
 }
@@ -266,7 +264,7 @@ select.editable {
 
 
 .modalhead {
-	background-image: url(/images/grid/grid-blue-hd.gif);
+	/*background-image: url(/images/grid/grid-blue-hd.gif);*/
 	height: 20px;
 	
 }
@@ -432,5 +430,5 @@ img.jqResize {
 	cursor: pointer;
 }
 .edit-cell {
-	background-color: #E1DCF4;
+	background-color: #b9b4a8;
 }

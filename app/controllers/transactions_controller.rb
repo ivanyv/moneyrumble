@@ -1,11 +1,15 @@
 class TransactionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => 'update_attr'
   
   # GET /transactions
   # GET /transactions.xml
   def index
     @account = current_user.accounts.find(params[:account_id])
-    @transactions = @account.transactions
 
+    order = params['sidx'] ? params['sidx'] : ''
+    order += params['sord'] == 'asc' ? ' asc' : ' desc'
+    @transactions = @account.transactions.find(:all, :order => order)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  # index.xml.erb
@@ -70,6 +74,24 @@ class TransactionsController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @transaction.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def update_attr
+    account = current_user.accounts.find(params[:account_id])
+    transaction = account.transactions.find(params[:id])
+    params.each do |param, value|
+      case param
+      when 'number'
+        transaction.number = value
+      when 'date'
+        transaction.date = value
+      end
+    end
+    if transaction.save
+      head :ok
+    else
+      render :xml => @transaction.errors, :status => :unprocessable_entity
     end
   end
 

@@ -3,17 +3,26 @@ $(document).ready(function() {
     url: grid_url,
     datatype: 'xml',
     mtype: 'GET',
-    colNames:['amount','date', 'num','notes'],
+    colNames:['Num','Date', 'Payee','Payment', 'Deposit', 'Balance'],
     colModel :[
-      {name:'amount', index:'amount', width:55},
-      {name:'date', index:'date', width:90},
-      {name:'number', index:'number', width:80, align:'right'},
-      {name:'notes', index:'notes', width:150, sortable:false} ],
+      {name:'number', index:'number', width:30, align:'right', editable:true},
+      {name:'date', index:'date', width:40, align:'center', editable:true},
+      {name:'payee', index:'payee', width:90, align:'left'},
+      {name:'payment', index:'payment', width:45, align:'right'},
+      {name:'deposit', index:'deposit', width:45, align:'right'},
+      {name:'balance', index:'balance', width:45, sortable: false, align:'right'} ],
+    cellEdit: true,
+    cellurl: cell_edit_url,
     sortname: 'date',
-    sortorder: "desc",
+    sortorder: "asc",
     viewrecords: true,
     imgpath: '/images/grid',
-    gridComplete: resizeGrid
+    gridComplete: resizeGrid,
+    afterSaveCell: function(id, name, val, iRow, iCol) {
+      if (name == $('#register').getGridParam('sortname')) {
+        $('#register').trigger('reloadGrid');
+      }
+    }
   });
   
   $(window).resize(function() {
