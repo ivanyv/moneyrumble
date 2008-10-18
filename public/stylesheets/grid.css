@@ -8,21 +8,21 @@
 .Header th { 
 	font-size: 100%; font-weight: bold; text-align: left;
 	padding: 2px;
-	background-image: url(images/headerbg.gif) ;
+	background-image: url(/images/grid/headerbg.gif) ;
 	color: #FFFFFF;
 	width: 100%;
 	white-space: nowrap;
 	}
 
 .HeaderLeft { 
-	background-image: url(images/headerleft.gif);
+	background-image: url(/images/grid/headerleft.gif);
 	}
 
 .HeaderRight { 
-	background-image: url(images/headerright.gif);
+	background-image: url(/images/grid/headerright.gif);
 	}
 .HeaderButton {
-	background-image: url(images/headerbg.gif);	
+	background-image: url(/images/grid/headerbg.gif);
 }
 .HeaderButton img{
 	width: 17px;
@@ -80,7 +80,7 @@ table.scroll tr.over td{
 	font-weight: normal;
 	overflow: hidden;
 	white-space: nowrap;
-	background-image: url(images/grid-blue-hd.gif);
+	background-image: url(/images/grid/grid-blue-hd.gif);
 	height : 17px;
 }
 	
@@ -110,7 +110,7 @@ div.scroll {
 	height: 23px;
 	white-space: nowrap;
 	text-align: center;
-	background-image: url(images/grid-blue-ft.gif);
+	background-image: url(/images/grid/grid-blue-ft.gif);
 	display : none;
 
 }
@@ -140,7 +140,7 @@ input.selbox{
 
 table.navtable {margin-bottom:0; width: auto;}
 table.navtable tr{
-	background-image: url(images/grid-blue-ft.gif);	
+	background-image: url(/images/grid/grid-blue-ft.gif);
 }
 
 table.navtable td.nav-button {
@@ -266,7 +266,7 @@ select.editable {
 
 
 .modalhead {
-	background-image: url(images/grid-blue-hd.gif);
+	background-image: url(/images/grid/grid-blue-hd.gif);
 	height: 20px;
 	
 }
@@ -386,7 +386,7 @@ img.jqResize {
 	cursor :se-resize;
 }
 .dirty-cell {
-	background: transparent url(images/dirty.gif) no-repeat 0 0;	
+	background: transparent url(/images/grid/dirty.gif) no-repeat 0 0;
 }
 #DelError td {
 	font-size: 90%;
@@ -409,7 +409,7 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_minus.gif) no-repeat;
+	background: url(/images/grid/tree_minus.gif) no-repeat;
 }
 .tree-plus
 {
@@ -417,7 +417,7 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_plus.gif) no-repeat;
+	background: url(/images/grid/tree_plus.gif) no-repeat;
 }
 .tree-leaf
 {
@@ -425,7 +425,7 @@ img.jqResize {
 	height: 18px; 
 	width: 16px;
 	overflow: hidden;
-	background: url(images/tree_leaf.gif) no-repeat;
+	background: url(/images/grid/tree_leaf.gif) no-repeat;
 }
 .treeclick
 {

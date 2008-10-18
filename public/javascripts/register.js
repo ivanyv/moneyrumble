@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('#register').jqGrid({
-    url:'/accounts/5/transactions.xml',
+    url: grid_url,
     datatype: 'xml',
     mtype: 'GET',
     colNames:['amount','date', 'num','notes'],
@@ -9,13 +9,19 @@ $(document).ready(function() {
       {name:'date', index:'date', width:90},
       {name:'number', index:'number', width:80, align:'right'},
       {name:'notes', index:'notes', width:150, sortable:false} ],
-    pager: jQuery('#pager'),
-    rowNum:10,
-    rowList:[10,20,30],
     sortname: 'date',
     sortorder: "desc",
     viewrecords: true,
-    imgpath: '/stylesheets/basic/images',
-    caption: 'My first grid'
+    imgpath: '/images/grid',
+    gridComplete: resizeGrid
   });
+  
+  $(window).resize(function() {
+    resizeGrid()
+  })
 })
+
+function resizeGrid() {
+  $('#register').setGridWidth($('#account-register').width());
+  $('#register').setGridHeight($('#content-wrapper').height() - 120);
+}
