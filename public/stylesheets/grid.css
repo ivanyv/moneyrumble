@@ -275,7 +275,7 @@ div.userdata {
 	overflow: auto;
         width: 150% !important;
         font-style: italic;
-        /*display:none;*/
+        display:none;
 }
 .rowdiv  {
 	display: table-row;

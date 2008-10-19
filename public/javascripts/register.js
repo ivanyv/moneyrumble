@@ -43,7 +43,7 @@ $(document).ready(function() {
     subGridUrl : grid_detail_url,
     subGridModel :[
       { name : [ 'Notes' ],
-        width : [ '50%' ],
+        width : [ '100%' ],
         params : [ 'date' ]}
     ]
   });
