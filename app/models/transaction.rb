@@ -37,10 +37,12 @@ class Transaction < ActiveRecord::Base
   def amount
     case attributes['type']
     when 'Deposit'
-      deposit
+      a = deposit
     when 'Payment'
-      payment * -1
+      a = payment * -1
     end
+    a = nil if a == 0.0
+    a
   end
 
   def update_account_balance
