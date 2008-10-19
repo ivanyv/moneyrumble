@@ -1,9 +1,15 @@
 class Account < ActiveRecord::Base
   belongs_to :parent, :class_name => 'Account'
-  has_many :sub_accounts, :class_name => 'Account', :foreign_key => 'parent_id'
-  has_many :transactions
+  has_many :sub_accounts, :class_name => 'Account', :foreign_key => 'parent_id', :dependent => :nullify
+  has_many :transactions, :dependent => :destroy
+  has_many :deposits
+  has_many :payments
 
   belongs_to :owner, :class_name => 'User'
+
+  def update_balance
+    update_attribute :balance, deposits.sum(:deposit) - payments.sum(:payment)
+  end
 
   def self.demo
     accounts = []

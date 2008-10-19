@@ -1,8 +1,9 @@
 class Transaction < ActiveRecord::Base
   belongs_to :account
+  belongs_to :transfer_to, :class_name => 'Transaction', :foreign_key => 'transfer_transaction_id'
 
   after_save :update_account_balance
-
+  
   def payee
     'Ivan Vega Rivera'
   end
@@ -18,18 +19,25 @@ class Transaction < ActiveRecord::Base
 
   protected
   def update_account_balance
-    case attributes['type']
-    when 'Deposit'
-      amount = deposit
-    when 'Payment'
-      amount = payment * -1
-    when 'Transfer'
-      amount = payment == 0 ? t.deposit : t.payment * -1
+    if self.instance_of?(Transfer)
+      # payment == 0 means this is the receiving end of the transfer
+      if payment == 0
+        if deposit != transfer_to.payment.abs
+          transfer_to.update_attribute :payment, deposit.abs
+          transfer_to.account.update_balance
+        end
+      else
+        if payment != transfer_to.deposit.abs
+          transfer_to.update_attribute :deposit, payment.abs
+          transfer_to.account.update_balance
+        end
+      end
     end
-    account.update_attribute :balance, account.balance + amount
+    account.update_balance
 
-    trans = account.transactions.find(:all, :conditions => "date >= '#{date}'", :order => 'id asc')
-    prev = account.transactions.find(:first, :conditions => "date < '#{date}'", :order => 'id desc')
+    comparison_date = date > date_was ? date_was : date
+    trans = account.transactions.find(:all, :conditions => "date >= '#{comparison_date}'", :order => 'date asc, id asc')
+    prev = account.transactions.find(:first, :conditions => "date < '#{comparison_date}'", :order => 'id desc')
     prev = prev ? prev.running_balance : 0
     amount = 0
     sql = ''

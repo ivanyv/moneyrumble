@@ -3,8 +3,9 @@ $(document).ready(function() {
     url: grid_url,
     datatype: 'xml',
     mtype: 'GET',
-    colNames:['Num','Date', 'Payee','Payment', 'Deposit', 'Balance', ''],
+    colNames:['Del', 'Num','Date', 'Payee','Payment', 'Deposit', 'Balance', ''],
     colModel :[
+      {name:'del', index:'del', width:13, align:'center', sortable:false},
       {name:'number', index:'number', width:30, align:'right', editable:true},
       {name:'date', index:'date', width:40, align:'center', editable:true},
       {name:'payee', index:'payee', width:90, align:'left'},
@@ -23,6 +24,14 @@ $(document).ready(function() {
       if (name == $('#register').getGridParam('sortname')) {
         $('#register').trigger('reloadGrid');
       }
+    },
+    loadComplete: function() {
+      var ids = $("#register").getDataIDs();
+      for (var i = 0; i < ids.length; i++) {
+        var cl = ids[i];
+        de = "<input style='height:22px;width:20px;' type='button' value='X' onclick=\"$.post('" + cell_edit_url + "', {id:" + cl + ", destroy: true}, function(data){ reloadGridAndAccounts(); }, 'text');\"  />"
+        $("#register").setRowData(ids[i], {del: de})
+      }
     }
   });
   
@@ -33,13 +42,19 @@ $(document).ready(function() {
   $('#new-transaction > ul').tabs();
   
   $('#new-transaction form').ajaxComplete(function(e, xhr, settings) {
-    if (settings.url != '/accounts/' + current_account + '/transactions') { return }
-    $('#register').trigger('reloadGrid');
-    $('#account_list').load('/accounts.js');
+    skip = settings.url != '/accounts/' + current_account + '/transactions' &&
+           settings.url != '/accounts/' + current_account + '/transactions/update_attr'
+    if (skip) { return }
+    reloadGridAndAccounts();
   })
 })
 
 function resizeGrid() {
   $('#register').setGridWidth($('#account-register').width());
   $('#register').setGridHeight($('#content-wrapper').height() - 262);
+}
+
+function reloadGridAndAccounts() {
+  $('#register').trigger('reloadGrid');
+  $('#account_list').load('/accounts.js');
 }

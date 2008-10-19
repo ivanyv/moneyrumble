@@ -11,4 +11,5 @@
               %span.balance= number_to_currency(sub_acc.balance, :unit => '$', :separator => '.', :delimiter => ',')
 
 #dlg_new_account
-  = partial 'new'
+  - if logged_in?
+    = partial 'accounts/new'

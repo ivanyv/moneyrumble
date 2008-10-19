@@ -1,11 +1,10 @@
 class TransactionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => 'update_attr'
+  before_filter :set_account
   
   # GET /transactions
   # GET /transactions.xml
   def index
-    @account = current_user.accounts.find(params[:account_id])
-
     order = params['sidx'] ? params['sidx'] : ''
     order += params['sord'] == 'asc' ? ' asc' : ' desc'
     @transactions = @account.transactions.find(:all, :order => order)
@@ -46,7 +45,6 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.xml
   def create
-    @account = current_user.accounts.find(params[:account_id])
     amount = BigDecimal.new(params[:transaction].delete(:amount)).abs
     type = params[:transaction].delete(:type).capitalize
     @transaction = @account.transactions.new(params[:transaction])
@@ -95,16 +93,18 @@ class TransactionsController < ApplicationController
   end
 
   def update_attr
-    account = current_user.accounts.find(params[:account_id])
-    transaction = account.transactions.find(params[:id])
+    transaction = @account.transactions.find(params[:id])
     params.each do |param, value|
       case param
       when 'number'
         transaction.number = value
       when 'date'
         transaction.date = value
+      when 'destroy'
+        transaction.destroy if value
       end
     end
+
     if transaction.save
       head :ok
     else
@@ -115,12 +115,17 @@ class TransactionsController < ApplicationController
   # DELETE /transactions/1
   # DELETE /transactions/1.xml
   def destroy
-    @transaction = Transaction.find(params[:id])
+    @transaction = @account.transactions.find(params[:id])
     @transaction.destroy
 
     respond_to do |format|
-      format.html { redirect_to(transactions_url) }
+      format.html { head :ok }
       format.xml  { head :ok }
     end
+  end
+  
+  protected
+  def set_account
+    @account = current_user.accounts.find(params[:account_id])
   end
 end

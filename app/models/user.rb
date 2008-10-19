@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
 
-  has_many :accounts, :foreign_key => 'owner_id'
+  has_many :accounts, :foreign_key => 'owner_id', :dependent => :destroy
   
   named_scope :active, :conditions => ['state != ?','inactive']
   named_scope :admins, :conditions => {:state => 'admin'}
