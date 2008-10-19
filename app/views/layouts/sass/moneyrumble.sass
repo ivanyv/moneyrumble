@@ -33,7 +33,7 @@ h1
   a
     :color #2f2f2f
     :padding 0.2em
-    :line-heigh 1.4em
+    :line-height 1.4em
     :font-size 14px
 
 #sidebar
@@ -255,7 +255,7 @@ h1
   :height 138px
 
 .negative
-  :color #ff000 !important
+  :color #cc0000 !important
 
 body:first-of-type .ui-tabs-nav
   :height 20px
@@ -267,3 +267,13 @@ body:first-of-type .ui-tabs-nav
   img
     :margin 0
     :padding 0
+
+table.accounts-summary
+  :font-size 115%
+  :width 100%
+  .balance, & .total_balance
+    :text-align right
+  .total, & .total_balance
+    :font-weight bold
+  tr.total td
+    :border-bottom 1px solid #b9b4a8 !important

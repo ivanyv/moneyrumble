@@ -13,6 +13,14 @@ class Account < ActiveRecord::Base
     update_attribute :balance, deposits.sum(:deposit) - payments.sum(:payment)
   end
 
+  def global_balance
+    bal = balance
+    sub_accounts.each do |sub|
+      bal += sub.balance
+    end
+    bal
+  end
+
   def name_for_transfer
     "Transfer to: #{name}"
   end

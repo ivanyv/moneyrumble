@@ -1,0 +1,30 @@
+%h2 Accounts summary
+
+%table.accounts-summary
+  %tr
+    %th.name Account
+    %th.balance Ending Balance
+  - net_worth = 0
+  - for account in @accounts
+    %tr.account
+      %td.name= account.name
+      - bal = account.balance
+      - css = bal < 0 ? 'negative' : ''
+      %td.balance{ :class => css }= number_to_currency(bal, :unit => '$', :separator => '.', :delimiter => ',')
+    - for sub in account.sub_accounts
+      %tr.sub_account
+        %td.name= sub.full_name
+        - bal = sub.balance
+        - css = bal < 0 ? 'negative' : ''
+        %td.balance{ :class => css }= number_to_currency(bal, :unit => '$', :separator => '.', :delimiter => ',')
+    %tr.total
+      %td.total Total:
+      - gb = account.global_balance
+      - css = gb < 0 ? 'negative' : ''
+      - net_worth += gb
+      %td.total_balance{ :class => css }= number_to_currency(gb, :unit => '$', :separator => '.', :delimiter => ',')
+
+- css = net_worth < 0 ? 'negative' : ''
+%h2
+  Your Net Worth:
+  %span{ :class => css }= number_to_currency(net_worth, :unit => '$', :separator => '.', :delimiter => ',')
