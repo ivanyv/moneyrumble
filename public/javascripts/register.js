@@ -3,7 +3,7 @@ $(document).ready(function() {
     url: grid_url,
     datatype: 'xml',
     mtype: 'GET',
-    colNames:['Del', 'Num','Date', 'Payee','Payment', 'Deposit', 'Balance'],
+    colNames:['Del', 'Num','Date', 'Payee','Payment', 'Deposit', 'Balance', ''],
     colModel :[
       {name:'del', index:'del', width:13, align:'center', sortable:false},
       {name:'number', index:'number', width:30, align:'right', editable:true},
@@ -11,7 +11,8 @@ $(document).ready(function() {
       {name:'payee', index:'payee', width:90, align:'left'},
       {name:'payment', index:'payment', width:45, align:'right'},
       {name:'deposit', index:'deposit', width:45, align:'right'},
-      {name:'balance', index:'balance', width:45, sortable: false, align:'right'} ],
+      {name:'balance', index:'balance', width:45, sortable: false, align:'right'},
+      {name:'dummy', index:'dummy', width:2, sortable: false } ],
     cellEdit: true,
     cellurl: cell_edit_url,
     sortname: 'date',
@@ -42,7 +43,7 @@ $(document).ready(function() {
     subGridUrl : grid_detail_url,
     subGridModel :[
       { name : [ 'Notes' ],
-        width : [ '100%' ],
+        width : [ '50%' ],
         params : [ 'date' ]}
     ]
   });
@@ -55,7 +56,11 @@ $(document).ready(function() {
   
   $('#new-transaction form').ajaxComplete(function(e, xhr, settings) {
     skip = settings.url != '/accounts/' + current_account + '/transactions' &&
-           settings.url != '/accounts/' + current_account + '/transactions/update_attr'
+           settings.url != '/accounts/' + current_account + '/transactions/update_attr' &&
+           settings.url != '/accounts/' + current_account + '/deposits' &&
+           settings.url != '/accounts/' + current_account + '/deposits/update_attr' &&
+           settings.url != '/accounts/' + current_account + '/payments' &&
+           settings.url != '/accounts/' + current_account + '/payments/update_attr'
     if (skip) { return }
     reloadGridAndAccounts();
   })

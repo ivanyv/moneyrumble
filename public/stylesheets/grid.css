@@ -1,3 +1,53 @@
+.ac_results {
+	padding: 0px;
+	border: 1px solid black;
+	background-color: white;
+	overflow: hidden;
+	z-index: 99999;
+}
+
+.ac_results ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ac_results li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	/*
+	if width will be 100% horizontal scrollbar will apear
+	when scroll mode will be used
+	*/
+	/*width: 100%;*/
+	font: menu;
+	font-size: 12px;
+	/*
+	it is very important, if line-height not setted or setted
+	in relative units scroll will be broken in firefox
+	*/
+	line-height: 16px;
+	overflow: hidden;
+}
+
+.ac_loading {
+	background: white url('indicator.gif') right center no-repeat;
+}
+
+.ac_odd {
+	background-color: #eee;
+}
+
+.ac_over {
+	background-color: #50825D;
+	color: white;
+}
+
+
 .GridHeader {
 	display: none;
 }
@@ -63,6 +113,7 @@ table.scroll tr.over td{
 	table.scroll tbody td  {
 	padding: 2px;
 	text-align: left;
+	border-left: 1px solid #d0cfcb;
 	border-bottom: 1px solid #d0cfcb;
         border-right: 1px solid #d0cfcb;
 	text-overflow: ellipsis;
@@ -217,12 +268,14 @@ div.userdata {
 }
 .celldivth {
 	float: left; /*fix for  buggy browsers*/
-	border: 1px solid #CCCCCC;
-	background-color: #EBE5D7;
+	/*border: 1px solid #CCCCCC;*/
+	/*background-color: #EBE5D7;*/
 	border-bottom: 1px solid #CBC7B8;
 	text-align: left;
 	overflow: auto;
-        display:none;
+        width: 150% !important;
+        font-style: italic;
+        /*display:none;*/
 }
 .rowdiv  {
 	display: table-row;

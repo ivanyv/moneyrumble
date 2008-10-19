@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  auto_complete_for :contact, :name
+
   before_filter :find_sidebar_accounts, :only => [ :dashboard, :index, :show, :new ]
   before_filter :accounts_for_transfer, :only => [ :dashboard, :show ]
   

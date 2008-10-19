@@ -1,8 +1,10 @@
-= f.hidden_field :type, :value => 'Deposit'
+= hidden_field_tag 'trans_type', 'Deposit'
 .left
   .labels
+    = f.label :other_party_id, 'Payee:'
     = f.label :notes, 'Description:'
   .fields
+    = f.text_field :other_party_id, :autocomplete => 'off'
     = f.text_field :notes
 .right
   .labels

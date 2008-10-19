@@ -14,7 +14,7 @@
   = stylesheet_link_tag 'boxy'
   = stylesheet_link_tag 'grid'
 
-  = javascript_include_tag :defaults, 'jquery.dimensions.js', 'jquery.boxy.js', 'jqModal.js', 'grid.locale-en.js', 'grid.pack.js', 'jquery.corners.js'
+  = javascript_include_tag :defaults, 'jquery.dimensions.js', 'jquery.boxy.js', 'jqModal.js', 'grid.locale-en.js', 'grid.pack.js', 'jquery.corners.js', 'jquery.autocomplete.js'
 
   %body
     %h1= APP_CONFIG[:site_name]
@@ -32,7 +32,7 @@
         %ul{ :class => @current_section }
           %li.register= link_to 'Register', root_path
           %li.accounts= link_to 'Accounts', accounts_path
-          %li.contacts= link_to 'Contacts', 'contacts_path'
+          %li.contacts= link_to 'Contacts', contacts_path
 
       #content-wrapper
         #content

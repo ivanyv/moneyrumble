@@ -3,9 +3,9 @@
 <% for t in @transactions %>
   <row id="<%= t.id %>">
     <cell></cell>
-    <cell><%= t.number %></cell>
+    <cell><![CDATA[<%= t.number %>]]></cell>
     <cell><%= t.date %></cell>
-    <cell><%= t.payee %></cell>
+    <cell><![CDATA[<%= t.payee_text %>]]></cell>
     <cell><%= number_to_currency0(t.payment, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
     <cell><%= number_to_currency0(t.deposit, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
     <cell>
@@ -17,6 +17,7 @@
       <%= number_to_currency(t.running_balance, :unit => '$', :separator => '.', :delimiter => ',') %>
       <% end %>
     </cell>
+    <cell><![CDATA[&nbsp;]]></cell>
   </row>
 <% end %>
 </rows>

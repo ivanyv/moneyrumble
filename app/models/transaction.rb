@@ -2,21 +2,22 @@ class Transaction < ActiveRecord::Base
   belongs_to :account
   belongs_to :transferred_to, :class_name => 'Deposit', :foreign_key => 'transfer_transaction_id', :dependent => :destroy
   belongs_to :transferred_from, :class_name => 'Payment', :foreign_key => 'transfer_transaction_id'
-  
+  belongs_to :payee, :class_name => 'Contact', :foreign_key => 'other_party_id'
+
   before_validation :set_date
   after_save :update_account_balance
   after_destroy :update_account_balance
 
   @@skip_update_account_balance = false
   
-  def payee
-    s = ''
+  def payee_text
+    s = '&lt;None&gt;'
     if transfer?
       target = Account.find(other_party_id)
       s = transfer_origin? ? "Transfer To: " : "Transfer From: "
       s += target.full_name
     else
-      s = notes.blank? ? 'Not yet implemented' : "Note: #{notes}"
+      s = payee.name if payee
     end
     s
   end

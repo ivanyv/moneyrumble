@@ -1,0 +1,20 @@
+<h2>Your contacts</h2>
+
+<p>You create a contact on the fly by entering a name in a transaction's payee field.</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% for contact in @contacts %>
+  <tr>
+    <td><%=h contact.name %></td>
+    <td><%= link_to 'Show', contact %></td>
+    <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+    <td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'New contact', new_contact_path %>

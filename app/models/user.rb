@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   has_many :accounts, :foreign_key => 'owner_id', :dependent => :destroy
+  has_many :contacts, :foreign_key => 'owner_id', :dependent => :destroy
   
   named_scope :active, :conditions => ['state != ?','inactive']
   named_scope :admins, :conditions => {:state => 'admin'}

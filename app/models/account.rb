@@ -1,9 +1,11 @@
 class Account < ActiveRecord::Base
   belongs_to :parent, :class_name => 'Account'
   has_many :sub_accounts, :class_name => 'Account', :foreign_key => 'parent_id', :dependent => :nullify
-  has_many :transactions, :dependent => :destroy
+  has_many :transactions
   has_many :deposits
   has_many :payments
+
+  after_destroy :nullify_transfers
 
   belongs_to :owner, :class_name => 'User'
 
@@ -36,5 +38,22 @@ class Account < ActiveRecord::Base
 
   def full_name
     parent_id ? "#{parent.name} » #{name}" : name
+  end
+
+  protected
+  def nullify_transfers
+    user = User.find owner_id
+    acc = Account.find :first, :conditions => { :owner_id => user.id }
+
+    Transaction.update_all 'other_party_id = NULL, transfer_transaction_id = NULL',
+      "transfer_transaction_id > 0 AND other_party_id = #{id}"
+    Transaction.delete_all "account_id = #{id} OR (account_id = #{acc.id} AND payment > 0)"
+
+    acc.update_balance
+
+    if user.default_account == id
+      acc = acc ? acc.id : nil
+      user.update_attribute :default_account, acc
+    end
   end
 end

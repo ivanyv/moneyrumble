@@ -1,8 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :contacts
+
   #map.resources :transactions
 
   map.resources :accounts, :collection => { :dashboard => :get } do |a|
     a.resources :transactions, :collection => { :update_attr => :any }
+    a.payments 'transactions', :controller => 'transactions', :action => 'create', :method => :post
+    a.deposits 'deposits', :controller => 'transactions', :action => 'create', :method => :post
   end
    
   # Restful Authentication Rewrites
@@ -24,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   # Home Page
   map.root :controller => 'accounts', :action => 'dashboard'
 
+  map.connect 'auto_complete_for_contact_name', :controller => 'accounts', :action => 'auto_complete_for_contact_name'
 #  # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

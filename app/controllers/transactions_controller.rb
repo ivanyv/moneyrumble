@@ -17,7 +17,6 @@ class TransactionsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html # index.html.erb
       format.xml  {
         render :action => 'detail' if params[:detail]
       }
@@ -54,19 +53,27 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.xml
   def create
-    amount = BigDecimal.new(params[:transaction].delete(:amount)).abs
-    type = params[:transaction].delete(:type).capitalize
+    type = params[:trans_type].capitalize
+    type = 'Transaction' if type == 'Transfer'
+    type_sym = type.downcase.to_sym
+    amount = BigDecimal.new(params[type_sym].delete(:amount)).abs
 
     # It doesn't matter if it's invalid because we check that later:
     @transfer = nil
-    case type.downcase
-    when 'payment'
-      @transaction = @account.payments.new(params[:transaction])
+    case type_sym
+    when :payment
+      contact_name = params[:payment].delete(:other_party_id)
+      contact = Contact.find_or_create_by_name_for_owner(contact_name, current_user.id)
+      params[:payment][:other_party_id] = contact ? contact.id : nil
+      @transaction = @account.payments.new(params[:payment])
       @transaction.payment = amount
-    when 'deposit'
-      @transaction = @account.deposits.new(params[:transaction])
+    when :deposit
+      contact_name = params[:deposit].delete(:other_party_id)
+      contact = Contact.find_or_create_by_name_for_owner(contact_name, current_user.id)
+      params[:deposit][:other_party_id] = contact ? contact.id : nil
+      @transaction = @account.deposits.new(params[:deposit])
       @transaction.deposit = amount
-    when 'transfer'
+    when :transaction
       @transaction = @account.payments.new(params[:transaction])
       @transaction.payment = amount
       @transfer = @account.transfer_to(@transaction, params[:transaction][:other_party_id])

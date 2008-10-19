@@ -13,11 +13,11 @@
       %li{ :class => tab_class }= link_to '<span>Transfer</span>', '#transfer'
 
     #payment
-      - remote_form_for [@account, @account.transactions.new] do |f|
+      - remote_form_for [@account, @account.payments.new] do |f|
         = partial 'transactions/payment_form', :f => f
         
     #deposit
-      - remote_form_for [@account, @account.transactions.new] do |f|
+      - remote_form_for [@account, @account.deposits.new] do |f|
         = partial 'transactions/deposit_form', :f => f
 
     #transfer
@@ -30,5 +30,7 @@
   == var grid_detail_url = '#{formatted_account_transactions_path(:account_id => @account.id, :format => 'xml', :detail => true)}';
   == var cell_edit_url = "#{url_for(:controller => 'transactions', :action => 'update_attr', :account_id => @account.id)}";
   == var current_account = '#{@account.id}';
+  == $("#payment_other_party_id").autocomplete("auto_complete_for_contact_name");
+  == $("#deposit_other_party_id").autocomplete("auto_complete_for_contact_name");
 
 = javascript_include_tag 'register.js'

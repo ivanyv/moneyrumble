@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081018194816) do
+ActiveRecord::Schema.define(:version => 20081019195130) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "owner_id"
@@ -17,6 +17,13 @@ ActiveRecord::Schema.define(:version => 20081018194816) do
     t.decimal  "balance",        :default => 0.0
     t.decimal  "global_balance", :default => 0.0
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.string   "name"
+    t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
