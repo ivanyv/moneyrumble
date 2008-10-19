@@ -46,12 +46,29 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.xml
   def create
-    @transaction = Transaction.new(params[:transaction])
+    @account = current_user.accounts.find(params[:account_id])
+    amount = BigDecimal.new(params[:transaction].delete(:amount)).abs
+    type = params[:transaction].delete(:type).capitalize
+    @transaction = @account.transactions.new(params[:transaction])
+
+    # It doesn't matter if it's invalid because we check that later:
+    @transaction.type = type
+    case type.downcase
+    when 'payment'
+      @transaction.payment = amount
+    when 'deposit'
+      @transaction.deposit = amount
+    when 'transfer'
+      @transaction.payment = amount
+      # todo: create deposit on target account
+    else
+      return head :bad_request
+    end
 
     respond_to do |format|
       if @transaction.save
         flash[:notice] = 'Transaction was successfully created.'
-        format.html { redirect_to(@transaction) }
+        format.html { head :ok }
         format.xml  { render :xml => @transaction, :status => :created, :location => @transaction }
       else
         format.html { render :action => "new" }

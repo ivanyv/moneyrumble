@@ -7,7 +7,7 @@
     <cell><%= t.payee %></cell>
     <cell><%= number_to_currency0(t.payment, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
     <cell><%= number_to_currency0(t.deposit, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
-    <cell><%= number_to_currency(t.balance, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
+    <cell><%= number_to_currency(t.running_balance, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
   </row>
 <% end %>
 </rows>
