@@ -106,19 +106,17 @@ class AccountsController < ApplicationController
   
   protected
     def find_sidebar_accounts
-      @accounts = current_user.accounts.find(:all, :conditions => { :parent_id => nil }, :include => [ :sub_accounts ] )
+      @account = params[:id] ? @account = current_user.accounts.find(params[:id]) :
+        @account  = current_user.default_account
+
+      @all_accounts = current_user.accounts.find(:all, :include => [ :sub_accounts ] )
+
+      @accounts = []
+      @all_accounts.each {|a| @accounts << a unless a.parent_id }
     end
 
     def accounts_for_transfer
-      if params[:id]
-        @account = current_user.accounts.find(params[:id])
-      else
-        @account  = current_user.default_account
-      end
-
       @accounts_for_transfer = []
-      if @accounts.size > 1
-        @accounts_for_transfer = current_user.accounts.find(:all, :conditions => ['id <> ?', @account.id])
-      end
+      @all_accounts.each {|a| @accounts_for_transfer << a if a.id != @account.id }
     end
 end

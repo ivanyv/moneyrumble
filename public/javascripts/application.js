@@ -26,7 +26,6 @@ function attachAjaxHandler() {
 }
 
 function onNewAccountSubmit(e, xhr, settings) {
-  console.log(settings.url);
   if (settings.url == '/accounts') {
     $('#account_list').load('/accounts.js');
     $('#content').load('/accounts/dashboard.js');
