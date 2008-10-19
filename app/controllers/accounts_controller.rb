@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :find_sidebar_accounts, :only => [ :dashboard, :index, :show, :new ]
+  before_filter :accounts_for_transfer, :only => [ :dashboard, :show ]
   
   def dashboard
     @account  = current_user.default_account
@@ -30,7 +31,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.xml
   def show
-    @account = current_user.accounts.find(params[:id])
     @current_section = 'register'
     
     respond_to do |format|
@@ -108,5 +108,13 @@ class AccountsController < ApplicationController
   protected
     def find_sidebar_accounts
       @accounts = current_user.accounts.find(:all, :conditions => { :parent_id => nil }, :include => [ :sub_accounts ] )
+    end
+
+    def accounts_for_transfer
+      @account = current_user.accounts.find(params[:id])
+      @accounts_for_transfer = []
+      if @accounts.size > 1
+        @accounts_for_transfer = current_user.accounts.find(:all, :conditions => ['id <> ?', @account.id])
+      end
     end
 end

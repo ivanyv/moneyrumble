@@ -5,7 +5,7 @@
     = f.label :notes, 'Description:'
     /= f.label :notes, 'Tags:'
   .fields
-    = f.collection_select :other_party_id, current_user.accounts, 'id', 'full_name', { :prompt => true }, :class => 'text'
+    = f.collection_select :other_party_id, @accounts_for_transfer, 'id', 'full_name', { :prompt => true }, :class => 'text'
     = f.text_field :notes
     /= f.text_field :notes
 .right
