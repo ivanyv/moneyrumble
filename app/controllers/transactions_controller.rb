@@ -9,11 +9,18 @@ class TransactionsController < ApplicationController
       order = params['sidx']
       order += params['sord'] == 'asc' ? ' asc' : ' desc'
     end
-    @transactions = @account.transactions.find(:all, :order => order)
+    
+    if params[:detail]
+      @transaction = @account.transactions.find(params[:id])
+    else
+      @transactions = @account.transactions.find(:all, :order => order)
+    end
     
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  # index.xml.erb
+      format.xml  {
+        render :action => 'detail' if params[:detail]
+      }
     end
   end
 
@@ -66,6 +73,8 @@ class TransactionsController < ApplicationController
     else
       return head :bad_request
     end
+
+    return head :ok if amount == 0
 
     respond_to do |format|
       if @transaction.save

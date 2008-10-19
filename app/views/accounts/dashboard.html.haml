@@ -9,7 +9,8 @@
       %li.ui-tabs-disabled &nbsp; New &raquo;&nbsp;
       %li= link_to '<span>Payment</span>', '#payment'
       %li= link_to '<span>Deposit</span>', '#deposit'
-      %li= link_to '<span>Transfer</span>', '#transfer'
+      - tab_class = @accounts_for_transfer.size > 0 ? '' : 'ui-tabs-disabled'
+      %li{ :class => tab_class }= link_to '<span>Transfer</span>', '#transfer'
 
     #payment
       - remote_form_for [@account, @account.transactions.new] do |f|
@@ -20,11 +21,13 @@
         = partial 'transactions/deposit_form', :f => f
 
     #transfer
-      - remote_form_for [@account, @account.transactions.new] do |f|
-        = partial 'transactions/transfer_form', :f => f
+      - if @accounts_for_transfer
+        - remote_form_for [@account, @account.transactions.new] do |f|
+          = partial 'transactions/transfer_form', :f => f
 
 %script{ :type => 'text/javascript' }
   == var grid_url = '#{formatted_account_transactions_path(:account_id => @account.id, :format => 'xml')}';
+  == var grid_detail_url = '#{formatted_account_transactions_path(:account_id => @account.id, :format => 'xml', :detail => true)}';
   == var cell_edit_url = "#{url_for(:controller => 'transactions', :action => 'update_attr', :account_id => @account.id)}";
   == var current_account = '#{@account.id}';
 

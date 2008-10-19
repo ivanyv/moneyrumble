@@ -1,5 +1,5 @@
 - for account in @accounts
-  %ul
+  %ul.rounded
     %li
       %span.name= link_to "#{account.name}:", account_path(account)
       %span.balance= number_to_currency(account.balance, :unit => '$', :separator => '.', :delimiter => ',')

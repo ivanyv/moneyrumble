@@ -3,7 +3,6 @@ class AccountsController < ApplicationController
   before_filter :accounts_for_transfer, :only => [ :dashboard, :show ]
   
   def dashboard
-    @account  = current_user.default_account
     @current_section = 'register'
 
     respond_to do |format|
@@ -111,7 +110,12 @@ class AccountsController < ApplicationController
     end
 
     def accounts_for_transfer
-      @account = current_user.accounts.find(params[:id])
+      if params[:id]
+        @account = current_user.accounts.find(params[:id])
+      else
+        @account  = current_user.default_account
+      end
+
       @accounts_for_transfer = []
       if @accounts.size > 1
         @accounts_for_transfer = current_user.accounts.find(:all, :conditions => ['id <> ?', @account.id])

@@ -11,6 +11,8 @@ $(document).ready(function() {
   })
   
   attachAjaxHandler();
+
+  $('.rounded').corners('6px');
 })
 
 $(window).resize(function() {
@@ -28,14 +30,17 @@ function onNewAccountSubmit(e, xhr, settings) {
   if (settings.url == '/accounts') {
     $('#account_list').load('/accounts.js');
     $('#content').load('/accounts/dashboard.js');
-
+    
     b = Boxy.get($('#dlg_new_account'))
     b.hideAndUnload();
 
     reloadDlgNewAccount();
   }
   if (settings.url == '/accounts/new.js') {
-    $('#account_submit').click(alert('hi'));
+    
+  }
+  if (settings.url == '/accounts.js') {
+    $('.rounded').corners('6px');
   }
 }
 

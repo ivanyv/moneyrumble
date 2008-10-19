@@ -12,11 +12,16 @@ h1
 .button
   :background #dfd9c9
   :border #b9b4a8
-  :padding 0.5em 1em
-  :line-height 2em
+  :padding 0.3em 1em
+  :line-height 1.6em
   :text-decoration none
   :color #000
   :font-weight bold
+  :outline none
+  :cursor pointer
+  :white-space nowrap
+  :display -moz-inline-box
+  :display inline-block
 
   &:hover
     :background-color #b9b4a8
@@ -58,7 +63,7 @@ h1
     
     li
       :list-style none
-      :margin 0.5em
+      :margin 0 0.5em
       :font-weight bold
       :font-size 105%
 
@@ -239,6 +244,9 @@ h1
     :font-weight bold
     :border-bottom 1px solid #dfd9cb !important
 
+.ui-tabs-disabled
+  a
+    :color #b9b4a8 !important
 
 .ui-tabs-panel
   :margin-top 1px

@@ -38,7 +38,13 @@ $(document).ready(function() {
         $(negs[i]).addClass('negative');
       }
     },
-    subGrid: true
+    subGrid: true,
+    subGridUrl : grid_detail_url,
+    subGridModel :[
+      { name : [ 'Notes' ],
+        width : [ '100%' ],
+        params : [ 'date' ]}
+    ]
   });
   
   $(window).resize(function() {
