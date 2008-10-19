@@ -25,6 +25,15 @@ h1 {
   .button:hover {
     background-color: #b9b4a8; }
 
+#__idselector_button {
+  width: 28px;
+  height: 24px;
+  vertical-align: top;
+  padding: 0; }
+  #__idselector_button img {
+    margin: 0;
+    padding: 0; }
+
 #logout {
   position: absolute;
   right: 15px;

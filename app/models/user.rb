@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
   def self.find_or_create_by_identity_url(identity_url, reg_data)
     user = User.find_by_identity_url identity_url
     unless user
-      user = self.create!(:identity_url => identity_url, :name => reg_data['nickname'], :email => reg_data['email'])
+      name = ''
+      name = reg_data['nickname'].split('')[0..90].join + '...' if reg_data['nickname']
+      user = self.create!(:identity_url => identity_url, :name => name, :email => reg_data['email'])
     end
     user
   end
