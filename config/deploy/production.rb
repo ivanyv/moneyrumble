@@ -29,7 +29,7 @@ role :db, domain, :primary => true
 #############################################################
 
 set :scm, :git
-set :branch, "master"
+set :branch, "railsrumble"
 set :scm_user, 'ivanvr'
 #set :scm_passphrase, "PASSWORD"
 set :repository, "git@github.com:railsrumble/ivan-el-terrible.git"
