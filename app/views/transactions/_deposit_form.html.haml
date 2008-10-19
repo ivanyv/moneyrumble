@@ -1,0 +1,17 @@
+= f.hidden_field :type, :value => 'Deposit'
+.left
+  .labels
+    = f.label :notes, 'Description:'
+  .fields
+    = f.text_field :notes
+.right
+  .labels
+    = f.label :number, 'Num:'
+    = f.label :date, 'Date:'
+    = f.label :amount, 'Amount:'
+  .fields
+    = f.text_field :number, :size => '5'
+    = f.text_field :date, :size => '10'
+    = f.text_field :amount, :size => '10'
+.buttons
+  = f.submit 'Enter'

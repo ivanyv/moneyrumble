@@ -9,7 +9,9 @@ class AccountsController < ApplicationController
       format.html {
         render :action => 'no_accounts' if @accounts.size < 1
       }
-      format.js   { render :action => 'dashboard' }
+      format.js   {
+        #render :action => 'dashboard'
+      }
     end
   end
 
@@ -43,8 +45,6 @@ class AccountsController < ApplicationController
     @account = current_user.accounts.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @account }
       format.js   { render :partial => 'new' }
     end
   end
@@ -59,19 +59,21 @@ class AccountsController < ApplicationController
   def create
     @account = current_user.accounts.new(params[:account])
     
-    respond_to do |format|
+    #respond_to do |format|
       if @account.save
         default_account = Account.count == 1 || (Account.count > 1 && params[:default_account])
         current_user.update_attribute(:default_account, @account.id) if default_account
 
         flash[:notice] = 'Account was successfully created.'
-        format.html { redirect_to(@account) }
-        format.xml  { render :xml => @account, :status => :created, :location => @account }
+        head :ok
+        #format.html { redirect_to(@account) }
+        #format.xml  { render :xml => @account, :status => :created, :location => @account }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @account.errors, :status => :unprocessable_entity }
+        #format.html { render :action => "new" }
+        #format.xml  { render :xml => @account.errors, :status => :unprocessable_entity }
+        head :unprocessable_entity
       end
-    end
+    #end
   end
 
   # PUT /accounts/1

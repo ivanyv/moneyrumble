@@ -11,6 +11,10 @@ class Account < ActiveRecord::Base
     update_attribute :balance, deposits.sum(:deposit) - payments.sum(:payment)
   end
 
+  def name_for_transfer
+    "Transfer to: #{name}"
+  end
+
   def self.demo
     accounts = []
     accounts << Account.new(:name => 'Checking', :balance => rand(10000) )
@@ -20,7 +24,17 @@ class Account < ActiveRecord::Base
     accounts
   end
 
+  def transfer_to(trans, acc_id)
+    acc = Account.find acc_id
+    acc.deposits.new :other_party_id   => self.id,
+                     :deposit          => trans.payment,
+                     :date             => trans.date,
+                     :notes            => trans.notes,
+                     :number           => trans.number,
+                     :transferred_from => trans
+  end
+
   def full_name
-    parent_id ? "#{parent.name} &raquo #{name}" : name
+    parent_id ? "#{parent.name} » #{name}" : name
   end
 end

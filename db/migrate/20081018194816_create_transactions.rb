@@ -1,11 +1,11 @@
 class CreateTransactions < ActiveRecord::Migration
   def self.up
     create_table :transactions do |t|
-      t.integer :account_id
-      t.integer :other_party
+      t.integer :account_id, :null => false
+      t.integer :other_party_id
       t.string :type, :limit => 10
-      t.decimal :payment
-      t.decimal :deposit
+      t.decimal :payment, :default => 0
+      t.decimal :deposit, :default => 0
       t.integer :transfer_transaction_id
       t.date :date
       t.string :notes

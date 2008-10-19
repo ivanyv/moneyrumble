@@ -1,0 +1,21 @@
+= f.hidden_field :type, :value => 'Transfer'
+.left
+  .labels
+    = f.label :notes, 'Transfer to:'
+    = f.label :notes, 'Description:'
+    /= f.label :notes, 'Tags:'
+  .fields
+    = f.collection_select :other_party_id, current_user.accounts, 'id', 'full_name', { :prompt => true }, :class => 'text'
+    = f.text_field :notes
+    /= f.text_field :notes
+.right
+  .labels
+    = f.label :number, 'Num:'
+    = f.label :date, 'Date:'
+    = f.label :amount, 'Amount:'
+  .fields
+    = f.text_field :number, :size => '5'
+    = f.text_field :date, :size => '10'
+    = f.text_field :amount, :size => '10'
+.buttons
+  = f.submit 'Enter'

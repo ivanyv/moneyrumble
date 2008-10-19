@@ -7,7 +7,7 @@ $(document).ready(function() {
     colModel :[
       {name:'del', index:'del', width:13, align:'center', sortable:false},
       {name:'number', index:'number', width:30, align:'right', editable:true},
-      {name:'date', index:'date', width:40, align:'center', editable:true},
+      {name:'date', index:'date', width:40, align:'center', editable:true, sorttype: 'date'},
       {name:'payee', index:'payee', width:90, align:'left'},
       {name:'payment', index:'payment', width:45, align:'right'},
       {name:'deposit', index:'deposit', width:45, align:'right'},
@@ -26,11 +26,17 @@ $(document).ready(function() {
       }
     },
     loadComplete: function() {
-      var ids = $("#register").getDataIDs();
+      var grid = $("#register");
+      var ids = grid.getDataIDs();
       for (var i = 0; i < ids.length; i++) {
         var cl = ids[i];
-        de = "<input style='height:22px;width:20px;' type='button' value='X' onclick=\"$.post('" + cell_edit_url + "', {id:" + cl + ", destroy: true}, function(data){ reloadGridAndAccounts(); }, 'text');\"  />"
-        $("#register").setRowData(ids[i], {del: de})
+        de = "<a title='Delete' href='#' onclick=\"$.post('" + cell_edit_url + "', {id:" + cl + ", destroy: true}, function(data){ reloadGridAndAccounts(); }, 'text');\"><img src='/images/delete.png' /></a>";
+        grid.setRowData(ids[i], {del: de});
+      }
+      negs = $('.negative');
+      for (var i = 0; i < negs.length; i++) {
+        $(negs[i]).removeClass('negative');
+        $(negs[i]).addClass('negative');
       }
     }
   });
@@ -51,7 +57,7 @@ $(document).ready(function() {
 
 function resizeGrid() {
   $('#register').setGridWidth($('#account-register').width());
-  $('#register').setGridHeight($('#content-wrapper').height() - 262);
+  $('#register').setGridHeight($('#content-wrapper').height() - 272);
 }
 
 function reloadGridAndAccounts() {

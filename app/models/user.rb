@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def default_account
-    accounts.find(attributes['default_account']) || accounts.find(:first)
+    accounts.find(:first, :conditions => { :id => attributes['default_account'] }) || accounts.find(:first)
   end
 
   def self.find_or_create_by_identity_url(identity_url, reg_data)

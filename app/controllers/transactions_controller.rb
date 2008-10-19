@@ -5,8 +5,10 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.xml
   def index
-    order = params['sidx'] ? params['sidx'] : ''
-    order += params['sord'] == 'asc' ? ' asc' : ' desc'
+    if params['sidx']
+      order = params['sidx']
+      order += params['sord'] == 'asc' ? ' asc' : ' desc'
+    end
     @transactions = @account.transactions.find(:all, :order => order)
     
     respond_to do |format|
@@ -47,24 +49,32 @@ class TransactionsController < ApplicationController
   def create
     amount = BigDecimal.new(params[:transaction].delete(:amount)).abs
     type = params[:transaction].delete(:type).capitalize
-    @transaction = @account.transactions.new(params[:transaction])
 
     # It doesn't matter if it's invalid because we check that later:
-    @transaction.type = type
+    @transfer = nil
     case type.downcase
     when 'payment'
+      @transaction = @account.payments.new(params[:transaction])
       @transaction.payment = amount
     when 'deposit'
+      @transaction = @account.deposits.new(params[:transaction])
       @transaction.deposit = amount
     when 'transfer'
+      @transaction = @account.payments.new(params[:transaction])
       @transaction.payment = amount
-      # todo: create deposit on target account
+      @transfer = @account.transfer_to(@transaction, params[:transaction][:other_party_id])
     else
       return head :bad_request
     end
 
     respond_to do |format|
       if @transaction.save
+        if @transfer
+          @transfer.save
+          @transaction.update_attribute :transfer_transaction_id, @transfer.id
+          @transfer.account.update_balance
+          @transaction.account.update_balance
+        end
         flash[:notice] = 'Transaction was successfully created.'
         format.html { head :ok }
         format.xml  { render :xml => @transaction, :status => :created, :location => @transaction }

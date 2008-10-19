@@ -17,3 +17,10 @@
 
   .answers
     = f.submit 'Create'
+
+  - if @accounts.size > 0
+    %p.bug
+      If this is the second time you open this dialog please close it manually
+      and refresh the page. I haven't been able to fix a little fucking JS bug...
+      sorry for the inconvenience
+      = image_tag 'face-grin.png'

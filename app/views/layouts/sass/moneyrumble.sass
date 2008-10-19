@@ -198,6 +198,8 @@ h1
         :float left
       .labels
         :width auto !important
+        label
+          :margin-top 3px
     .right
       :width 30%
       :float right
@@ -216,7 +218,14 @@ h1
         :display block
         :margin-top 3px
         :height 17px
+      select
+        :display block
+        :margin-top 0px
+        :margin-left 1px
+        :height 24px
+
     .buttons
+      :padding-top 10px
       :clear both
 
 .ui-tabs-hide
@@ -235,4 +244,18 @@ h1
   :margin-top 1px
   :background #dfd9cb
   :border 1px solid #b9b4a8
-  :height 128px
+  :height 138px
+
+.negative
+  :color #ff000 !important
+
+body:first-of-type .ui-tabs-nav
+  :height 20px
+  li
+    :padding-bottom 4px
+
+.bug
+  :width 400px
+  img
+    :margin 0
+    :padding 0

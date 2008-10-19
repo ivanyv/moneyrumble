@@ -8,7 +8,15 @@
     <cell><%= t.payee %></cell>
     <cell><%= number_to_currency0(t.payment, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
     <cell><%= number_to_currency0(t.deposit, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
-    <cell><%= number_to_currency(t.running_balance, :unit => '$', :separator => '.', :delimiter => ',') %></cell>
+    <cell>
+      <% if t.running_balance < 0 -%>
+      <![CDATA[
+      <span style="color:#cc0000"><%= number_to_currency(t.running_balance, :unit => '$', :separator => '.', :delimiter => ',') %></span>
+      ]]>
+      <% else %>
+      <%= number_to_currency(t.running_balance, :unit => '$', :separator => '.', :delimiter => ',') %>
+      <% end %>
+    </cell>
   </row>
 <% end %>
 </rows>
