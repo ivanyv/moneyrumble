@@ -2,17 +2,14 @@
 
 <p>You create a contact on the fly by entering a name in a transaction's payee field.</p>
 
-<table>
+<table style="width:50%">
   <tr>
     <th>Name</th>
   </tr>
 
 <% for contact in @contacts %>
   <tr>
-    <td><%=h contact.name %></td>
-    <td><%= link_to 'Show', contact %></td>
-    <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-    <td><%= link_to 'Destroy', contact, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to image_tag('delete.png', :title => 'Delete this contact'), contact, :confirm => "I'll ask just in case, are you sure?", :method => :delete %>&nbsp;&nbsp;<%= link_to(contact.name, edit_contact_path(contact)) %></td>
   </tr>
 <% end %>
 </table>

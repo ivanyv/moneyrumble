@@ -1,12 +1,14 @@
 - for account in @accounts
   %ul.rounded
     %li
+      %span.delete= link_to image_tag('delete.png', :title => 'Delete this account'), account, :confirm => 'Just in case, are you sure?', :method => :delete
       %span.name= link_to "#{account.name}:", account_path(account)
       %span.balance= number_to_currency(account.balance, :unit => '$', :separator => '.', :delimiter => ',')
       - if account.sub_accounts.size > 0
         %ul.subs
           - for sub_acc in account.sub_accounts
             %li
+              %span.delete= link_to image_tag('delete.png', :title => 'Delete this account'), sub_acc, :confirm => 'Just in case, are you sure?', :method => :delete
               %span.name= link_to "#{sub_acc.name}:", account_path(sub_acc)
               %span.balance= number_to_currency(sub_acc.balance, :unit => '$', :separator => '.', :delimiter => ',')
 
