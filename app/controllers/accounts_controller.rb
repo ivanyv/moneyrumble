@@ -97,7 +97,7 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.xml
   def destroy
-    @account = current_user.account.find(params[:id])
+    @account = current_user.accounts.find(params[:id])
     @account.destroy
 
     respond_to do |format|
